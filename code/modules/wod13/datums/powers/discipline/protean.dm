@@ -135,19 +135,19 @@
 	violates_masquerade = TRUE
 
 	cancelable = TRUE
-	duration_length = 20 SECONDS
-	cooldown_length = 20 SECONDS
 
 	grouped_powers = list(
 		/datum/discipline_power/protean/feral_claws,
 		/datum/discipline_power/protean/earth_meld,
 		/datum/discipline_power/protean/mist_form
 	)
-
+	//Gotta make a place to store our quirks when we transform
+	var/list/stored_quirks = null
 	var/obj/effect/proc_holder/spell/targeted/shapeshift/gangrel/better/GA
 
 /datum/discipline_power/protean/shape_of_the_beast/activate()
 	. = ..()
+	stored_quirks = owner.quriks.Copy()
 	if (!GA)
 		GA = new(owner)
 	owner.drop_all_held_items()
@@ -156,6 +156,8 @@
 /datum/discipline_power/protean/shape_of_the_beast/deactivate()
 	. = ..()
 	GA.Restore(GA.myshape)
+	for(var/Q in stored_quirks)
+		owner..add_quirk(Q.type)
 	owner.Stun(1 SECONDS)
 	owner.do_jitter_animation(15)
 
