@@ -147,7 +147,7 @@
 
 /datum/discipline_power/protean/shape_of_the_beast/activate()
 	. = ..()
-	stored_quirks = owner.quriks.Copy()
+	stored_quirks = owner.quirks.Copy()
 	if (!GA)
 		GA = new(owner)
 	owner.drop_all_held_items()
