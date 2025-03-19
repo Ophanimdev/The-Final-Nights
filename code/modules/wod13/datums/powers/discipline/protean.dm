@@ -157,7 +157,7 @@
 	. = ..()
 	GA.Restore(GA.myshape)
 	for(var/Q in stored_quirks)
-		owner..add_quirk(Q.type)
+		owner.add_quirk(Q.type)
 	owner.Stun(1 SECONDS)
 	owner.do_jitter_animation(15)
 
