@@ -407,6 +407,13 @@
 	masquerade_violating = TRUE
 	is_iron = FALSE
 
+/obj/item/melee/vampirearms/knife/gangrel/afterattack(atom/target, mob/living/carbon/user, proximity)
+	if(!proximity)
+		return
+	if(!ismob(target)) //This is literally just so that the claws can still smash barricades and windows without whiffing.
+		var/obj/structure/L = target
+		L.apply_damage(35, BRUTE)
+
 /obj/item/melee/vampirearms/knife/gangrel/lasombra
 	name = "shadow tentacle"
 	force = 23
