@@ -428,6 +428,9 @@
 	if(isliving(target))
 		var/mob/living/L = target
 		L.apply_damage(12, BURN)
+	else if(!ismob(target))
+		var/obj/structure/L = target
+		L.apply_damage(35, BRUTE)
 
 /obj/item/melee/touch_attack/werewolf
 	name = "\improper falling touch"
