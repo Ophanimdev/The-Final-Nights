@@ -410,9 +410,9 @@
 /obj/item/melee/vampirearms/knife/gangrel/afterattack(atom/target, mob/living/carbon/user, proximity)
 	if(!proximity)
 		return
-	if(!ismob(target)) //This is literally just so that the claws can still smash barricades and windows without whiffing.
+	if(isstructure(target)) //This is literally just so that the claws can still smash barricades and windows without whiffing.
 		var/obj/structure/L = target
-		L.apply_damage(35, BRUTE)
+		L.take_damage(35,BRUTE,MELEE, 0)
 
 /obj/item/melee/vampirearms/knife/gangrel/lasombra
 	name = "shadow tentacle"
@@ -428,9 +428,9 @@
 	if(isliving(target))
 		var/mob/living/L = target
 		L.apply_damage(12, BURN)
-	else if(!ismob(target))
+	else if(isstructure(target))
 		var/obj/structure/L = target
-		L.apply_damage(35, BRUTE)
+		L.take_damage(35,BRUTE,MELEE, 0)
 
 /obj/item/melee/touch_attack/werewolf
 	name = "\improper falling touch"
