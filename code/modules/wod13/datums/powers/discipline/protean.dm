@@ -55,7 +55,6 @@
 	duration_length = 2 TURNS
 
 	grouped_powers = list(
-		/datum/discipline_power/protean/earth_meld,
 		/datum/discipline_power/protean/shape_of_the_beast,
 		/datum/discipline_power/protean/mist_form
 	)
@@ -75,50 +74,29 @@
 	owner.remove_client_colour(/datum/client_colour/glass_colour/red)
 	owner.remove_movespeed_modifier(/datum/movespeed_modifier/protean2)
 
-//EARTH MELD
-/obj/effect/proc_holder/spell/targeted/shapeshift/gangrel
-	name = "Gangrel Form"
-	desc = "Take on the shape a wolf."
-	charge_max = 50
-	cooldown_min = 5 SECONDS
-	revert_on_death = TRUE
-	die_with_shapeshifted_form = FALSE
-	shapeshift_type = /mob/living/simple_animal/hostile/gangrel
+//VISCERAL ABSORPTION
 
-/datum/discipline_power/protean/earth_meld
-	name = "Earth Meld"
-	desc = "Hide yourself in the earth itself."
+/datum/discipline_power/protean/visceral_absorption
+	name = "Visceral Absorption"
+	desc = "Semi-Permeable Vaccums Absorb ."
 
 	level = 3
 
-	check_flags = DISC_CHECK_IMMOBILE | DISC_CHECK_CAPABLE
+	violates_masquerade = FALSE //May be subject to change later
 
-	violates_masquerade = TRUE
+	toggled = TRUE
 
-	cancelable = TRUE
-	duration_length = 20 SECONDS
-	cooldown_length = 20 SECONDS
-
-	grouped_powers = list(
-		/datum/discipline_power/protean/feral_claws,
-		/datum/discipline_power/protean/shape_of_the_beast,
-		/datum/discipline_power/protean/mist_form
-	)
-
-	var/obj/effect/proc_holder/spell/targeted/shapeshift/gangrel/GA
-
-/datum/discipline_power/protean/earth_meld/activate()
+/datum/discipline_power/protean/visceral_absorption/activate()
+	SIGNAL_HANDLER
 	. = ..()
-	if (!GA)
-		GA = new(owner)
-	owner.drop_all_held_items()
-	GA.Shapeshift(owner)
+	var/atom/movable/slurper = owner
+	var/turf/tile = slurper.loc
 
-/datum/discipline_power/protean/earth_meld/deactivate()
-	. = ..()
-	GA.Restore(GA.myshape)
-	owner.Stun(1.5 SECONDS)
-	owner.do_jitter_animation(30)
+	if(isturf(tile))
+		for(var/obj/effect/decal/cleanable/blood/B in tile)
+			owner.bloodpool += 1
+		tile.wash
+
 
 //SHAPE OF THE BEAST
 /obj/effect/proc_holder/spell/targeted/shapeshift/gangrel/better
@@ -140,7 +118,6 @@
 
 	grouped_powers = list(
 		/datum/discipline_power/protean/feral_claws,
-		/datum/discipline_power/protean/earth_meld,
 		/datum/discipline_power/protean/mist_form
 	)
 
@@ -179,7 +156,6 @@
 
 	grouped_powers = list(
 		/datum/discipline_power/protean/feral_claws,
-		/datum/discipline_power/protean/earth_meld,
 		/datum/discipline_power/protean/shape_of_the_beast
 	)
 
