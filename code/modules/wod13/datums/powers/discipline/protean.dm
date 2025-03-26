@@ -86,7 +86,6 @@
 	toggled = TRUE
 
 /datum/discipline_power/protean/visceral_absorption/activate()
-	SIGNAL_HANDLER
 	. = ..()
 
 	for(var/obj/effect/decal/cleanable/blood/B in range(1, get_turf(owner)))
