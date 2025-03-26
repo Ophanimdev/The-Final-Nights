@@ -90,7 +90,7 @@
 	SIGNAL_HANDLER
 
 	var/atom/movable/G = owner
-	var/turf/T = owner.loc
+	var/turf/T = G.loc
 
 	for(var/obj/effect/decal/cleanable/blood/B in T)
 		if(B.bloodiness)
