@@ -87,13 +87,16 @@
 
 /datum/discipline_power/protean/visceral_absorption/activate()
 	. = ..()
+	SIGNAL_HANDLER
 
-	for(var/obj/effect/decal/cleanable/blood/B in range(1, get_turf(owner)))
+	var/atom/movable/G = owner
+	var/turf/T = owner.loc
+
+	for(var/obj/effect/decal/cleanable/blood/B in T)
 		if(B.bloodiness)
 			owner.bloodpool += 1
 			owner.visible_message(span_danger("[owner] absorbs [B] through their skin!"), \
 			"<span class='userdanger'>You asborb [B] through your skin!</span>")
-			var/turf/T = get_turf(B)
 			if(T)
 				T.wash(CLEAN_WASH)
 
