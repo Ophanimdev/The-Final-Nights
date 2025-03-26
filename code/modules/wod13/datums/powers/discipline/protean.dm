@@ -91,7 +91,8 @@
 	for(var/obj/effect/decal/cleanable/blood/B in range(1, get_turf(owner)))
 		if(B.bloodiness)
 			owner.bloodpool += 1
-			owner.visible_message(span_danger([owner] absorbs [B] through their skin!))
+			owner.visible_message(span_danger("[owner] absorbs [B] through their skin!"), \
+			"<span class='userdanger'>You asborb [B] through your skin!</span>")
 			var/turf/T = get_turf(B)
 			if(T)
 				T.wash(CLEAN_WASH)
