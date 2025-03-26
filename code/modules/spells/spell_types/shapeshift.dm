@@ -214,6 +214,8 @@
 		var/damage_percent = (shape.maxHealth - shape.health)
 
 		stored.apply_damage(damage_percent, source.convert_damage_type, forced = TRUE, wound_bonus=CANT_WOUND)
+
+	SSquirks.AssignQuirks(stored, stored.client, TRUE) //Reapply quirks
 //	if(source.convert_damage)
 //		stored.blood_volume = shape.blood_volume;
 
