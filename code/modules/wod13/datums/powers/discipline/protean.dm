@@ -95,7 +95,7 @@
 	if(isturf(tile))
 		for(var/obj/effect/decal/cleanable/blood/B in tile)
 			owner.bloodpool += 1
-		tile.wash
+		tile.wash(CLEAN_WASH)
 
 
 //SHAPE OF THE BEAST
