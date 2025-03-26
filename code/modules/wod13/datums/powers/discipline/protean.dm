@@ -82,20 +82,20 @@
 
 	level = 3
 
-	violates_masquerade = FALSE //May be subject to change later
-
+	violates_masquerade = TRUE
 	toggled = TRUE
 
 /datum/discipline_power/protean/visceral_absorption/activate()
 	SIGNAL_HANDLER
 	. = ..()
-	var/atom/movable/slurper = owner
-	var/turf/tile = slurper.loc
 
-	if(isturf(tile))
-		for(var/obj/effect/decal/cleanable/blood/B in tile)
+	for(var/obj/effect/decal/cleanable/blood/B in range(1, get_turf(owner)))
+		if(B.bloodiness)
 			owner.bloodpool += 1
-		tile.wash(CLEAN_WASH)
+			owner.visible_message(span_danger([owner] absorbs [B] through their skin!))
+			var/turf/T = get_turf(B)
+			if(T)
+				T.wash(CLEAN_WASH)
 
 
 //SHAPE OF THE BEAST
